@@ -20,6 +20,7 @@ public class App
         String value = null;
         try {
            value = a.get(5);
+           System.out.println(value.equals("5"));
 
         }catch ( IndexOutOfBoundsException e){
 
@@ -30,8 +31,8 @@ public class App
         }finally {
 
         }
-        System.out.println(value.equals("5"));
-        System.out.println("第五个数的值是： + value");
+
+        System.out.println("第五个数的值是：" + value);
 
     }
 
