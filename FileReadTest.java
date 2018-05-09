@@ -1,4 +1,6 @@
 package com.qingguatang;
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -6,7 +8,7 @@ public class FileReadTest {
 
     public static void main(String[] args){
 
-        File file = new File("D:\\javabiii\\bikes.txt");
+        File file = new File("D:\\javasecond\\bike.txt");
 
         ArrayList<Bike> bikes = new ArrayList<>();
         FileReader fileReader = null;
@@ -51,10 +53,49 @@ public class FileReadTest {
 
             }
         }
-        for (Bike bike : bikes) {
-            if (bike.getBrand().equals("捷安特")) {
-                System.out.println(bike.getType());
+
+
+        File newFile = new File("D:\\javasecond\\bike-filtes.txt");
+        if (!newFile.exists()){
+
+            try {
+                newFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
+        BufferedWriter writer = null;
+        try {
+            FileWriter fileWriter = new FileWriter(newFile);
+
+             writer = new BufferedWriter(fileWriter);
+            for (Bike bike : bikes) {
+                String isMall = "是";
+                if (!bike.isMall()){
+                    isMall = "否";
+
+                }
+
+                String Line = bike.getBrand() + "|" + bike.getType() + "|" + isMall + "|" + bike.getPublishTime() + "\n";
+                writer.write(Line);
+
+                writer.flush();
+
+
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
+
     }
 }
